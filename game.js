@@ -41,3 +41,33 @@ function playSound(name) {
     let audio = new Audio(`sounds/${name}.mp3`); 
     audio.play();
 }
+
+document.querySelectorAll(".btn").forEach(btn => {
+    btn.addEventListener('click', function() {
+        let userChosenColor = this.id;
+        userClickedPattern.push(userChosenColor);
+
+        playSound(userChosenColor);
+        animatePress(userChosenColor);
+
+        checkAnswer(userClickedPattern.length - 1);
+    });
+});
+
+function checkAnswer(currentLevel) {
+    if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
+        if (userClickedPattern.length === gamePattern.length){
+            setTimeout(() => {
+                nextSequence();
+            }, 1000);
+        }
+    } else {
+        playSound("wrong"); 
+        document.querySelector("body").classList.add("game-over");
+        document.querySelector("#level-title").textContent = "Game Over, Press Any Key to Restart";
+        setTimeout(() => {
+            document.querySelector("body").classList.remove("game-over");
+        }, 200);
+        startOver();
+    }
+}
