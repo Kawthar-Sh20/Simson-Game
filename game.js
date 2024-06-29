@@ -71,3 +71,16 @@ function checkAnswer(currentLevel) {
         startOver();
     }
 }
+
+function startOver() {
+    level = 0;
+    gamePattern = [];
+    started = false;
+}
+
+function animatePress(currentColor) {
+    let button = document.getElementById(currentColor);
+    button.classList.add("pressed");
+    setTimeout(() => button.classList.remove("pressed"), 100);
+}
+
